@@ -1,0 +1,92 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  name     String
+  email    String @unique
+  password String
+  phone    String
+  address  String
+
+  Session         Session[]
+  Companie        Company[]
+  Place           Place[]
+  CompanyManagers CompanyManager[]
+  PlaceManagers   PlaceManager[]
+  Tickets         Ticket[]
+
+  @@unique([id, email])
+}
+
+model Session {
+  id     Int    @id @default(autoincrement())
+  token  String
+  userId Int
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Company {
+  id         Int    @id @default(autoincrement())
+  name       String
+  address    String
+  taxId      String
+  mainUserId Int
+
+  Place    Place[]
+  Managers CompanyManager[]
+
+  user User @relation(fields: [mainUserId], references: [id])
+}
+
+model Place {
+  id         Int    @id @default(autoincrement())
+  name       String
+  address    String
+  taxId      String
+  mainUserId Int
+  companyId  Int
+
+  Managers PlaceManager[]
+
+  user    User     @relation(fields: [mainUserId], references: [id])
+  company Company @relation(fields: [companyId], references: [id])
+}
+
+model CompanyManager {
+  id        Int @id @default(autoincrement())
+  userId    Int
+  companyId Int
+
+  user    User     @relation(fields: [userId], references: [id])
+  company Company @relation(fields: [companyId], references: [id])
+}
+
+model PlaceManager {
+  id      Int @id @default(autoincrement())
+  placeId Int
+  userId  Int
+
+  place Place @relation(fields: [placeId], references: [id])
+  user  User  @relation(fields: [userId], references: [id])
+}
+
+model Ticket {
+  id           Int    @id @default(autoincrement())
+  title        String
+  requesterId  Int
+  replierEmail String
+  email        String @unique
+  password     String
+  phone        String
+  address      String
+
+  user User @relation(fields: [requesterId, replierEmail], references: [id, email])
+}
