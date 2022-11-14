@@ -1,15 +1,5 @@
-import express, { Router, Request, Response } from "express";
+import "./setup";
+import app from "./app";
 
-const app = express();
-
-const route = Router();
-
-app.use(express.json());
-
-route.get("/", (req: Request, res: Response) => {
-  res.json({ message: "hello world with Typescript" });
-});
-
-app.use(route);
-
-app.listen(3000);
+app.listen(process.env.PORT);
+console.log("app is listening on", process.env.PORT);
