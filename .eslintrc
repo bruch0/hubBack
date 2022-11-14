@@ -21,7 +21,8 @@
         "@typescript-eslint/comma-dangle": "off",
         "@typescript-eslint/semi": "off",
         "import/prefer-default-export": "off",
-        "react/jsx-filename-extension": "off"
+        "react/jsx-filename-extension": "off",
+        "@typescript-eslint/member-delimiter-style": "off"
       }
     }
   ]
