@@ -1,0 +1,28 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "jest": true
+  },
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "extends": [
+        "airbnb-typescript",
+        "eslint-config-prettier",
+        "eslint-config-standard-with-typescript"
+      ],
+      "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module",
+        "project": ["./tsconfig.json"]
+      },
+      "rules": {
+        "@typescript-eslint/comma-dangle": "off",
+        "@typescript-eslint/semi": "off",
+        "import/prefer-default-export": "off",
+        "react/jsx-filename-extension": "off"
+      }
+    }
+  ]
+}
