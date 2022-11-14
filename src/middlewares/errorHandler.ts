@@ -1,5 +1,6 @@
 import { ErrorRequestHandler, Request, Response } from 'express';
-import GenericError from '../errors/genericError';
+
+import GenericError from '@errors/genericError';
 
 const databaseError: ErrorRequestHandler = (error: GenericError, _: Request, response: Response, __: any) => {
   if (error instanceof GenericError) return response.status(error.status).send(error.message);

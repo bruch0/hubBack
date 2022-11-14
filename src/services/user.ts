@@ -1,9 +1,9 @@
 import { hashSync } from 'bcrypt';
 
-import Error from '../errors/genericError';
+import Error from '@errors/genericError';
 
-import * as userSchema from './schemas/user';
-import * as userRepository from '../repositories/user';
+import * as userSchema from '@services/schemas/user';
+import * as userRepository from '@repositories/user';
 
 const signUp = async ({
   name,
