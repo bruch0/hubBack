@@ -7,11 +7,7 @@
   "overrides": [
     {
       "files": ["*.ts"],
-      "extends": [
-        "airbnb-typescript",
-        "eslint-config-prettier",
-        "eslint-config-standard-with-typescript"
-      ],
+      "extends": ["airbnb-typescript", "eslint-config-prettier", "eslint-config-standard-with-typescript"],
       "parserOptions": {
         "ecmaVersion": "latest",
         "sourceType": "module",
@@ -23,7 +19,8 @@
         "import/prefer-default-export": "off",
         "react/jsx-filename-extension": "off",
         "@typescript-eslint/member-delimiter-style": "off",
-        "@typescript-eslint/no-misused-promises": "off"
+        "@typescript-eslint/no-misused-promises": "off",
+        "import/no-absolute-path": "off"
       }
     }
   ]
