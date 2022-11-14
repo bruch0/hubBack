@@ -28,13 +28,13 @@ const signUp = async ({
 
   if (validation.error != null) {
     const errorMessage = validation.error.details[0].message;
-    throw new Error(errorMessage);
+    throw new Error('bodyValidation', errorMessage);
   }
 
   const available = await userRepository.getUsers({
     where: { email },
   });
-  if (available[0].email.length === 0) throw new Error('Email já utilizado');
+  if (available.length > 0) throw new Error('emailAlreadyInUse', 'Email já utilizado');
 
   const hashPassword = hashSync(password, 12);
 

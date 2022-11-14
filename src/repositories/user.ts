@@ -1,8 +1,6 @@
 import { Prisma, PrismaClient, User } from '@prisma/client';
 
-const getUsers = async (
-  userFindMany: Prisma.UserFindManyArgs
-): Promise<User[]> => {
+const getUsers = async (userFindMany: Prisma.UserFindManyArgs): Promise<User[]> => {
   const prisma = new PrismaClient();
   const response = await prisma.user.findMany(userFindMany);
 
