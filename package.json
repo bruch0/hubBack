@@ -7,7 +7,7 @@
     "db:migrate": "npx prisma migrate dev --name init",
     "db:test": "npx prisma generate --schema prisma/testSchema.prisma",
     "db:dev": "npx prisma generate --schema prisma/schema.prisma",
-    "lint": "npx eslint 'src/**/**'",
+    "lint": "npx eslint \"src/**/**.ts\" --max-warnings=0",
     "build": "tsc",
     "test:watch": "npm run db:test && npx jest -i --watch",
     "test:coverage": "npm run db:test && npx jest --coverage",
