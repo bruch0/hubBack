@@ -1,9 +1,9 @@
 import { hashSync } from 'bcrypt';
 
-import Error from '../errors/genericError';
+import Error from '@errors/genericError';
 
-import * as userSchema from './schemas/user';
-import * as userRepository from '../repositories/user';
+import * as userSchema from '@services/schemas/user';
+import * as userRepository from '@repositories/user';
 
 const signUp = async ({
   name,
@@ -28,13 +28,13 @@ const signUp = async ({
 
   if (validation.error != null) {
     const errorMessage = validation.error.details[0].message;
-    throw new Error('bodyValidation', errorMessage);
+    throw new Error('bodyValidation', errorMessage, 400);
   }
 
   const available = await userRepository.getUsers({
     where: { email },
   });
-  if (available.length > 0) throw new Error('emailAlreadyInUse', 'Email já utilizado');
+  if (available.length > 0) throw new Error('emailAlreadyInUse', 'Email already in use', 403);
 
   const hashPassword = hashSync(password, 12);
 
