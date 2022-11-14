@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "exports": "./index.js",
   "scripts": {
-    "dev": "npm run db:dev && NODE_ENV=dev npx nodemon --watch \"src/**\" --ext \"ts,json\" --exec \"ts-node src/server.ts\"",
+    "dev": "npm run db:dev && NODE_ENV=dev npx nodemon --watch",
     "db:migrate": "npx prisma migrate dev --name init",
     "db:test": "npx prisma generate --schema prisma/testSchema.prisma",
     "db:dev": "npx prisma generate --schema prisma/schema.prisma",
@@ -16,8 +16,7 @@
   "engines": {
     "node": ">=18.9.1"
   },
-  "keywords": [],
-  "author": "",
+  "author": "bruch0",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^4.6.1",
@@ -53,10 +52,32 @@
     "prettier": "^2.7.1",
     "prisma": "^4.6.1",
     "supertest": "^6.3.1",
+    "tsconfig-paths": "^4.1.0",
     "ts-node": "^10.9.1",
     "typescript": "^4.8.4"
   },
   "ntl": {
     "runner": "npm"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.ts"
+    ],
+    "coveragePathIgnorePatterns": [
+      "src/server.ts"
+    ]
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "**/*.test.ts",
+      "**/*.spec.ts",
+      ".git",
+      "node_modules"
+    ],
+    "watch": [
+      "src"
+    ],
+    "exec": "node -r tsconfig-paths/register -r ts-node/register ./src/server.ts",
+    "ext": "ts, js"
   }
 }
