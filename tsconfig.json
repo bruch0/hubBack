@@ -20,6 +20,7 @@
     "moduleResolution": "Node16",
     "noImplicitAny": true
   },
-  "include": ["src", "tests/**/*"],
+  "ts-node": { "files": true },
+  "include": ["src", "tests/**/*", "global.d.ts"],
   "exclude": ["node_modules", "dist"]
 }
