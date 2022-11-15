@@ -8,4 +8,9 @@ const signUp = joi.object({
   address: joi.string().required().min(8).max(100).required(),
 });
 
-export { signUp };
+const signIn = joi.object({
+  email: joi.string().required().email().required(),
+  password: joi.string().required().min(8).max(50).required(),
+});
+
+export { signUp, signIn };
