@@ -13,8 +13,6 @@ const clearDatabase = async (): Promise<void> => {
 
   await prisma.$executeRawUnsafe('TRUNCATE "CompanyManager" CASCADE;');
 
-  await prisma.$executeRawUnsafe('TRUNCATE "Session" CASCADE;');
-
   await prisma.$executeRawUnsafe('TRUNCATE "Ticket" CASCADE;');
 };
 
