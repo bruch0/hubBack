@@ -17,7 +17,7 @@ jobs:
         run: npm run lint
 
       - name: Run tests
-        run: npm run test:coverage
+        run: npm run test:workflow
 
       - name: Code Coverage Report
         uses: mszlgr/lcov-reporter-action@v0.2.23

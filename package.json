@@ -11,7 +11,8 @@
     "build": "tsc",
     "test:watch": "npm run db:test && npx jest -i --watch",
     "test:coverage": "npm run db:test && npx jest --coverage",
-    "test": "npm run db:test && npx jest -i"
+    "test": "npm run db:test && npx jest -i",
+    "test:workflow": "nom run db:migrate && npm run db:test && npx jest --coverage"
   },
   "engines": {
     "node": ">=18.9.1"
