@@ -4,7 +4,7 @@ on:
     branches:
       - 'main'
 jobs:
-  LintAndTest:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -16,8 +16,30 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      - name: Run tests
-        run: npm run test:workflow
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/hublocal
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '18.x'
+      - run: npm run build
+      - run: npm run test:workflow
 
       - name: Code Coverage Report
         uses: mszlgr/lcov-reporter-action@v0.2.23
