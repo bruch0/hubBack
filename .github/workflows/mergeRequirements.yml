@@ -1,0 +1,26 @@
+name: Build, Lint and Test
+on:
+  pull_request:
+    branches:
+      - 'main'
+jobs:
+  LintCode:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm i
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Run tests
+        run: npm run test:coverage
+
+      - name: Code Coverage Report
+        uses: mszlgr/lcov-reporter-action@v0.2.23
+        with:
+          lcov-file: ./coverage/lcov.info
+          github-token: ${{ secrets.GITHUB_TOKEN }}
