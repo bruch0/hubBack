@@ -11,7 +11,8 @@
     "build": "tsc",
     "test:watch": "npm run db:test && npx jest -i --watch",
     "test:coverage": "npm run db:test && npx jest --coverage",
-    "test": "npm run db:test && npx jest -i"
+    "test": "npm run db:test && npx jest -i",
+    "test:workflow": "npm run db:migrate && npm run db:dev && npx jest --coverage"
   },
   "engines": {
     "node": ">=18.9.1"
@@ -52,20 +53,13 @@
     "prettier": "^2.7.1",
     "prisma": "^4.6.1",
     "supertest": "^6.3.1",
-    "tsconfig-paths": "^4.1.0",
+    "ts-jest": "^29.0.3",
     "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.1.0",
     "typescript": "^4.8.4"
   },
   "ntl": {
     "runner": "npm"
-  },
-  "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.ts"
-    ],
-    "coveragePathIgnorePatterns": [
-      "src/server.ts"
-    ]
   },
   "nodemonConfig": {
     "ignore": [
