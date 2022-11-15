@@ -1,4 +1,5 @@
-import { hashSync } from 'bcrypt';
+import { hashSync, compareSync } from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 import Error from '@errors/genericError';
 
@@ -31,10 +32,10 @@ const signUp = async ({
     throw new Error('bodyValidation', errorMessage, 400);
   }
 
-  const available = await userRepository.getUsers({
+  const available = await userRepository.getOneUser({
     where: { email },
   });
-  if (available.length > 0) throw new Error('emailAlreadyInUse', 'Email already in use', 403);
+  if (available != null) throw new Error('emailAlreadyInUse', 'Email already in use', 403);
 
   const hashPassword = hashSync(password, 12);
 
@@ -45,4 +46,32 @@ const signUp = async ({
   return user;
 };
 
-export { signUp };
+const signIn = async ({ email, password }: { email: string; password: string }): Promise<any> => {
+  const validation = userSchema.signIn.validate({
+    email,
+    password,
+  });
+
+  if (validation.error != null) {
+    const errorMessage = validation.error.details[0].message;
+    throw new Error('bodyValidation', errorMessage, 400);
+  }
+
+  const user = await userRepository.getOneUser({ where: { email } });
+  if (user == null) throw new Error('userNotFound', 'User not found', 404);
+
+  const correctPassword = compareSync(password, user.password);
+  if (!correctPassword) throw new Error('wrongPassword', 'Incorrect password', 401);
+
+  const sessionToken = jwt.sign(
+    {
+      ...user,
+    },
+    process.env.JWT_SECRET,
+    { expiresIn: 60 * 60 }
+  );
+
+  return sessionToken;
+};
+
+export { signUp, signIn };
