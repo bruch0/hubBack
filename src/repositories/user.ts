@@ -7,6 +7,13 @@ const getUsers = async (userFindMany: Prisma.UserFindManyArgs): Promise<User[]> 
   return response;
 };
 
+const getOneUser = async (UserFindUnique: Prisma.UserFindUniqueArgs): Promise<User | null> => {
+  const prisma = new PrismaClient();
+  const response = await prisma.user.findUnique(UserFindUnique);
+
+  return response;
+};
+
 const createUser = async (userCreate: Prisma.UserCreateArgs): Promise<User> => {
   const prisma = new PrismaClient();
   const response = await prisma.user.create(userCreate);
@@ -14,4 +21,4 @@ const createUser = async (userCreate: Prisma.UserCreateArgs): Promise<User> => {
   return response;
 };
 
-export { getUsers, createUser };
+export { getUsers, getOneUser, createUser };
