@@ -15,7 +15,6 @@ model User {
   phone    String
   address  String
 
-  Session         Session[]
   Companie        Company[]
   Place           Place[]
   CompanyManagers CompanyManager[]
@@ -23,14 +22,6 @@ model User {
   Tickets         Ticket[]
 
   @@unique([id, email])
-}
-
-model Session {
-  id     Int    @id @default(autoincrement())
-  token  String
-  userId Int
-
-  user User @relation(fields: [userId], references: [id])
 }
 
 model Company {

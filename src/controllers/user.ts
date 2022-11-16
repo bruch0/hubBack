@@ -11,4 +11,13 @@ const signUp = async (request: Request, response: Response, next: NextFunction):
   }
 };
 
-export { signUp };
+const signIn = async (request: Request, response: Response, next: NextFunction): Promise<any> => {
+  try {
+    const sessionToken = await userService.signIn(request.body);
+    return response.status(200).send({ sessionToken });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { signUp, signIn };
