@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import e, { Request, Response, NextFunction } from 'express';
 
 import * as companyService from '@services/company';
 
@@ -39,11 +39,15 @@ const updateCompany = async (request: Request, response: Response, next: NextFun
 };
 
 const deleteCompany = async (request: Request, response: Response, next: NextFunction): Promise<any> => {
-  const companyDetails = await companyService.deleteCompany({
-    ...request.body,
-    userId: JSON.parse(request.headers.cookie!).id,
-  });
-  return response.status(200).send(companyDetails);
+  try {
+    const companyDetails = await companyService.deleteCompany({
+      ...request.body,
+      userId: JSON.parse(request.headers.cookie!).id,
+    });
+    return response.status(200).send(companyDetails);
+  } catch (error) {
+    next(error);
+  }
 };
 
 export { getUserCompanies, getCompanyDetails, createCompany, updateCompany, deleteCompany };
