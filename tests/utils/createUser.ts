@@ -2,7 +2,7 @@ import { PrismaClient, User } from '@prisma/client';
 import { hashSync } from 'bcrypt';
 import faker from 'faker';
 
-const createUser = async (): Promise<Omit<User, 'id' | 'name' | 'phone' | 'address'>> => {
+const createUser = async (): Promise<Omit<User, 'name' | 'phone' | 'address'>> => {
   const prisma = new PrismaClient();
   const password = faker.internet.password();
   const validBody = {
@@ -15,7 +15,7 @@ const createUser = async (): Promise<Omit<User, 'id' | 'name' | 'phone' | 'addre
 
   const user = await prisma.user.create({ data: { ...validBody } });
 
-  return { email: user.email, password };
+  return { id: user.id, email: user.email, password };
 };
 
 export default createUser;
