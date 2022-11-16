@@ -15,8 +15,8 @@ model User {
   phone    String
   address  String
 
-  Companie        Company[]
-  Place           Place[]
+  Companies       Company[]
+  Places          Place[]
   CompanyManagers CompanyManager[]
   PlaceManagers   PlaceManager[]
   Tickets         Ticket[]
@@ -31,10 +31,12 @@ model Company {
   taxId      String
   mainUserId Int
 
-  Place    Place[]
+  Places   Place[]
   Managers CompanyManager[]
 
   user User @relation(fields: [mainUserId], references: [id])
+
+  @@unique([taxId])
 }
 
 model Place {
@@ -47,7 +49,7 @@ model Place {
 
   Managers PlaceManager[]
 
-  user    User     @relation(fields: [mainUserId], references: [id])
+  user    User    @relation(fields: [mainUserId], references: [id])
   company Company @relation(fields: [companyId], references: [id])
 }
 
@@ -56,7 +58,7 @@ model CompanyManager {
   userId    Int
   companyId Int
 
-  user    User     @relation(fields: [userId], references: [id])
+  user    User    @relation(fields: [userId], references: [id])
   company Company @relation(fields: [companyId], references: [id])
 }
 
