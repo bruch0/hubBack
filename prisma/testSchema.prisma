@@ -16,11 +16,11 @@ model User {
   phone    String
   address  String
 
-  Companies       Company[]
-  Places          Place[]
-  CompanyManagers CompanyManager[]
-  PlaceManagers   PlaceManager[]
-  Tickets         Ticket[]
+  companies       Company[]
+  places          Place[]
+  companyManagers CompanyManager[]
+  placeManagers   PlaceManager[]
+  tickets         Ticket[]
 
   @@unique([id, email])
 }
@@ -32,8 +32,8 @@ model Company {
   taxId      String
   mainUserId Int
 
-  Places   Place[]
-  Managers CompanyManager[]
+  places   Place[]
+  managers CompanyManager[]
 
   user User @relation(fields: [mainUserId], references: [id])
 
@@ -44,11 +44,10 @@ model Place {
   id         Int    @id @default(autoincrement())
   name       String
   address    String
-  taxId      String
   mainUserId Int
   companyId  Int
 
-  Managers PlaceManager[]
+  managers PlaceManager[]
 
   user    User    @relation(fields: [mainUserId], references: [id])
   company Company @relation(fields: [companyId], references: [id])
