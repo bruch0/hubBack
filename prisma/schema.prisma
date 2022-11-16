@@ -35,7 +35,7 @@ model Company {
   places   Place[]
   managers CompanyManager[]
 
-  user User @relation(fields: [mainUserId], references: [id])
+  user User @relation(fields: [mainUserId], references: [id], onDelete: Cascade)
 
   @@unique([taxId])
 }
@@ -59,7 +59,7 @@ model CompanyManager {
   companyId Int
 
   user    User    @relation(fields: [userId], references: [id])
-  company Company @relation(fields: [companyId], references: [id])
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
 }
 
 model PlaceManager {
