@@ -11,6 +11,15 @@ const getUserCompanies = async (request: Request, response: Response, next: Next
   }
 };
 
+const getCompanyDetails = async (request: Request, response: Response, next: NextFunction): Promise<any> => {
+  try {
+    await companyService.getCompanyDetails({ companyId: Number(request.params.companyId) });
+    return response.status(201).send();
+  } catch (error) {
+    next(error);
+  }
+};
+
 const createCompany = async (request: Request, response: Response, next: NextFunction): Promise<any> => {
   try {
     await companyService.createCompany({ ...request.body, mainUserId: JSON.parse(request.headers.cookie!).id });
@@ -20,4 +29,4 @@ const createCompany = async (request: Request, response: Response, next: NextFun
   }
 };
 
-export { getUserCompanies, createCompany };
+export { getUserCompanies, getCompanyDetails, createCompany };

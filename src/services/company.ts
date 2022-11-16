@@ -16,7 +16,9 @@ const getUserCompanies = async ({ userId }: { userId: number }): Promise<any> =>
   return userCompanies;
 };
 
-const getOneCompany = async ({ companyId }: { companyId: number }): Promise<any> => {
+const getCompanyDetails = async ({ companyId }: { companyId: number }): Promise<any> => {
+  if (Number.isNaN(companyId)) throw new Error('invalidCompanyId', 'Empresa inválida', 404);
+
   const userCompanies = await companyRepository.getOneCompany({
     where: {
       id: companyId,
@@ -57,4 +59,4 @@ const createCompany = async ({
   await companyRepository.createCompany({ data: { name, address, taxId, mainUserId } });
 };
 
-export { getUserCompanies, getOneCompany, createCompany };
+export { getUserCompanies, getCompanyDetails, createCompany };
