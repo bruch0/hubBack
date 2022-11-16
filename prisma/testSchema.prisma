@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["interactiveTransactions"]
 }
 
 datasource db {
@@ -15,39 +16,40 @@ model User {
   phone    String
   address  String
 
-  Companie        Company[]
-  Place           Place[]
-  CompanyManagers CompanyManager[]
-  PlaceManagers   PlaceManager[]
-  Tickets         Ticket[]
+  companies       Company[]
+  places          Place[]
+  companyManagers CompanyManager[]
+  placeManagers   PlaceManager[]
+  tickets         Ticket[]
 
   @@unique([id, email])
 }
 
 model Company {
-  id         Int    @id @default(autoincrement())
+  id         Int    @id @default(autoincrement()) @unique
   name       String
   address    String
   taxId      String
   mainUserId Int
 
-  Place    Place[]
-  Managers CompanyManager[]
+  places   Place[]
+  managers CompanyManager[]
 
   user User @relation(fields: [mainUserId], references: [id])
+
+  @@unique([taxId])
 }
 
 model Place {
   id         Int    @id @default(autoincrement())
   name       String
   address    String
-  taxId      String
   mainUserId Int
   companyId  Int
 
-  Managers PlaceManager[]
+  managers PlaceManager[]
 
-  user    User     @relation(fields: [mainUserId], references: [id])
+  user    User    @relation(fields: [mainUserId], references: [id])
   company Company @relation(fields: [companyId], references: [id])
 }
 
@@ -56,7 +58,7 @@ model CompanyManager {
   userId    Int
   companyId Int
 
-  user    User     @relation(fields: [userId], references: [id])
+  user    User    @relation(fields: [userId], references: [id])
   company Company @relation(fields: [companyId], references: [id])
 }
 

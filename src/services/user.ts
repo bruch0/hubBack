@@ -39,11 +39,9 @@ const signUp = async ({
 
   const hashPassword = hashSync(password, 12);
 
-  const user = await userRepository.createUser({
+  await userRepository.createUser({
     data: { name, email, password: hashPassword, phone, address },
   });
-
-  return user;
 };
 
 const signIn = async ({ email, password }: { email: string; password: string }): Promise<any> => {
@@ -66,6 +64,7 @@ const signIn = async ({ email, password }: { email: string; password: string }):
   const sessionToken = jwt.sign(
     {
       ...user,
+      password: null,
     },
     process.env.JWT_SECRET,
     { expiresIn: 60 * 60 }
