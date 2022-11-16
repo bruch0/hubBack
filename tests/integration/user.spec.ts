@@ -64,8 +64,9 @@ describe('POST /signin', () => {
 
   it('Should return status 200 and a token when successfully logging in', async () => {
     const user = await createUser();
+    console.log(user);
     const result = await sut.post('/signin').send({ email: user.email, password: user.password });
-
+    console.log(result);
     expect(result.status).toEqual(200);
     expect(result.body.sessionToken).toBeDefined();
   });
