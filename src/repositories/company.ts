@@ -14,11 +14,13 @@ const getOneCompany = async (CompanyFindUnique: Prisma.CompanyFindUniqueArgs): P
   return response;
 };
 
-const createCompany = async (companyCreate: Prisma.CompanyCreateArgs): Promise<Company> => {
+const createCompany = async (companyCreate: Prisma.CompanyCreateArgs): Promise<void> => {
   const prisma = new PrismaClient();
-  const response = await prisma.company.create(companyCreate);
 
-  return response;
+  await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+    const company = await tx.company.create(companyCreate);
+    await tx.companyManager.create({ data: { userId: companyCreate.data.mainUserId!, companyId: company.id } });
+  });
 };
 
 const updateCompany = async (companyUpdate: Prisma.CompanyUpdateArgs): Promise<Company> => {

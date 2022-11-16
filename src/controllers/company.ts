@@ -4,7 +4,7 @@ import * as companyService from '@services/company';
 
 const getUserCompanies = async (request: Request, response: Response, next: NextFunction): Promise<any> => {
   try {
-    const userCompanies = await companyService.getUserCompanies({ userId: request.body.decoded.id });
+    const userCompanies = await companyService.getUserCompanies({ userId: JSON.parse(request.headers.cookie!).id });
     return response.status(200).send(userCompanies);
   } catch (error) {
     next(error);
@@ -13,7 +13,7 @@ const getUserCompanies = async (request: Request, response: Response, next: Next
 
 const createCompany = async (request: Request, response: Response, next: NextFunction): Promise<any> => {
   try {
-    await companyService.createCompany(request.body);
+    await companyService.createCompany({ ...request.body, mainUserId: JSON.parse(request.headers.cookie!).id });
     return response.status(201).send();
   } catch (error) {
     next(error);

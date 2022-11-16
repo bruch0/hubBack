@@ -8,7 +8,7 @@ const getUserCompanies = async ({ userId }: { userId: number }): Promise<any> =>
     where: {
       userId,
     },
-    include: {
+    select: {
       company: true,
     },
   });
