@@ -1,8 +1,8 @@
-import { Prisma, PrismaClient, Company } from '@prisma/client';
+import { Prisma, PrismaClient, Company, CompanyManager } from '@prisma/client';
 
-const getCompanies = async (companyFindMany: Prisma.CompanyFindManyArgs): Promise<Company[]> => {
+const getCompanies = async (companyFindMany: Prisma.CompanyManagerFindManyArgs): Promise<CompanyManager[]> => {
   const prisma = new PrismaClient();
-  const response = await prisma.company.findMany(companyFindMany);
+  const response = await prisma.companyManager.findMany(companyFindMany);
 
   return response;
 };
