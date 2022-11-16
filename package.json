@@ -3,16 +3,16 @@
   "version": "0.0.1",
   "exports": "./index.js",
   "scripts": {
-    "dev": "npm run db:dev && NODE_ENV=dev npx nodemon --watch",
-    "db:migrate": "npx prisma migrate dev --name init",
-    "db:test": "npx prisma generate --schema prisma/testSchema.prisma",
-    "db:dev": "npx prisma generate --schema prisma/schema.prisma",
-    "lint": "npx eslint \"src/**/**.ts\" --max-warnings=0",
     "build": "tsc",
-    "test:watch": "npm run db:test && npx jest -i --watch",
-    "test:coverage": "npm run db:test && npx jest --coverage",
-    "test": "npm run db:test && npx jest -i",
-    "test:workflow": "npm run db:migrate && npm run db:dev && npx jest --coverage"
+    "dev": "npm run db:dev && NODE_ENV=dev npx nodemon --watch",
+    "lint": "npx eslint \"src/**/**.ts\" --max-warnings=0",
+    "db:migrate": "npx prisma migrate dev --name init",
+    "db:generage": "npx prisma generate --schema prisma/schema.prisma",
+    "db:format": "npx prisma format",
+    "db:setup": "npm run db:migrate && npm run db:generage",
+    "test:watch": "NODE_ENV=test npm run db:migrate && npx jest -i --watch",
+    "test:coverage": "NODE_ENV=test npm run db:migrate && npx jest --coverage",
+    "test:workflow": "NODE_ENV=test npm run db:setup && npx jest --coverage"
   },
   "engines": {
     "node": ">=18.9.1"

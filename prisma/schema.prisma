@@ -47,7 +47,7 @@ model Place {
 
   Managers PlaceManager[]
 
-  user    User     @relation(fields: [mainUserId], references: [id])
+  user    User    @relation(fields: [mainUserId], references: [id])
   company Company @relation(fields: [companyId], references: [id])
 }
 
@@ -56,7 +56,7 @@ model CompanyManager {
   userId    Int
   companyId Int
 
-  user    User     @relation(fields: [userId], references: [id])
+  user    User    @relation(fields: [userId], references: [id])
   company Company @relation(fields: [companyId], references: [id])
 }
 
