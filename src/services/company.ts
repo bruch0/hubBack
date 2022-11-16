@@ -23,6 +23,28 @@ const getCompanyDetails = async ({ companyId }: { companyId: number }): Promise<
     where: {
       id: companyId,
     },
+    select: {
+      name: true,
+      address: true,
+      taxId: true,
+      managers: {
+        select: {
+          user: {
+            select: {
+              name: true,
+              email: true,
+              phone: true,
+            },
+          },
+        },
+      },
+      places: {
+        select: {
+          name: true,
+          address: true,
+        },
+      },
+    },
   });
 
   return companyDetails;
