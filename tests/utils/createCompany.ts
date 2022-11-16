@@ -4,7 +4,7 @@ import faker from 'faker';
 import prisma from '../../src/repositories/prismaInitializer';
 import createUser from './createUser';
 
-const createCompany = async (): Promise<Omit<Company, 'name' | 'taxId' | 'address' | 'mainUserId'>> => {
+const createCompany = async (): Promise<Company> => {
   const { id } = await createUser();
 
   const validBody = {
@@ -16,7 +16,7 @@ const createCompany = async (): Promise<Omit<Company, 'name' | 'taxId' | 'addres
 
   const company = await prisma.company.create({ data: { ...validBody } });
 
-  return { id: company.id };
+  return company;
 };
 
 export default createCompany;

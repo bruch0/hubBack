@@ -27,6 +27,7 @@ const getCompanyDetails = async ({ companyId }: { companyId: number }): Promise<
       name: true,
       address: true,
       taxId: true,
+      mainUserId: true,
       managers: {
         select: {
           user: {
