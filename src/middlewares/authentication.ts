@@ -11,7 +11,7 @@ const authentication = async (request: Request, response: Response, next: NextFu
   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err != null || decoded === undefined) return response.sendStatus(401);
 
-    request.body = { ...request.body, decoded };
+    request.headers.cookie = JSON.stringify(decoded);
 
     next();
   });
