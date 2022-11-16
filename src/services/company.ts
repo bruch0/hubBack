@@ -17,7 +17,7 @@ const getUserCompanies = async ({ userId }: { userId: number }): Promise<any> =>
 };
 
 const getCompanyDetails = async ({ companyId }: { companyId: number }): Promise<any> => {
-  if (Number.isNaN(companyId)) throw new Error('invalidCompanyId', 'Empresa inválida', 404);
+  if (Number.isNaN(companyId) || companyId < 1) throw new Error('invalidCompanyId', 'Empresa inválida', 404);
 
   const companyDetails = await companyRepository.getOneCompany({
     where: {
@@ -124,9 +124,7 @@ const deleteCompany = async ({ taxId, userId }: { userId: number; taxId: string 
     },
   });
 
-  if (company?.mainUserId !== userId) {
-    throw new Error('unauthorized', 'Only the company owner can delete a company', 401);
-  }
+  if (company?.mainUserId !== userId) throw new Error('unauthorized', 'Only the owner can delete a company', 401);
 
   await companyRepository.deleteCompany({ where: { taxId } });
 };

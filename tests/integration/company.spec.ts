@@ -50,6 +50,22 @@ describe('GET /companies/:companyId', () => {
     expect(result.status).toEqual(401);
   });
 
+  it('Should return status 404 when id is not valid', async () => {
+    const token = await createToken();
+
+    const result = await sut.get('/companies/0').set('authorization', `Bearer ${token}`);
+
+    expect(result.status).toEqual(404);
+  });
+
+  it('Should return status 404 when id is not a number', async () => {
+    const token = await createToken();
+
+    const result = await sut.get('/companies/random').set('authorization', `Bearer ${token}`);
+
+    expect(result.status).toEqual(404);
+  });
+
   it('Should return status 200 when the token passes the middleware', async () => {
     const { id } = await createCompany();
     const token = await createToken();
@@ -104,6 +120,14 @@ describe('POST /companies', () => {
     const result = await sut.post('/companies/').set('authorization', `Bearer ${token}`).send(validBody);
 
     expect(result.status).toEqual(201);
+  });
+
+  it('Should return status 403 when using the same taxId', async () => {
+    const token = await createToken();
+
+    const result = await sut.post('/companies/').set('authorization', `Bearer ${token}`).send(validBody);
+
+    expect(result.status).toEqual(403);
   });
 });
 
