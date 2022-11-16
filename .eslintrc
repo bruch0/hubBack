@@ -20,7 +20,8 @@
         "react/jsx-filename-extension": "off",
         "@typescript-eslint/member-delimiter-style": "off",
         "@typescript-eslint/no-misused-promises": "off",
-        "import/no-absolute-path": "off"
+        "import/no-absolute-path": "off",
+        "@typescript-eslint/no-non-null-assertion": "off"
       }
     }
   ]
