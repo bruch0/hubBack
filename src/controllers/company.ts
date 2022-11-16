@@ -40,11 +40,11 @@ const updateCompany = async (request: Request, response: Response, next: NextFun
 
 const deleteCompany = async (request: Request, response: Response, next: NextFunction): Promise<any> => {
   try {
-    const companyDetails = await companyService.deleteCompany({
+    await companyService.deleteCompany({
       ...request.body,
       userId: JSON.parse(request.headers.cookie!).id,
     });
-    return response.status(200).send(companyDetails);
+    return response.status(200).send();
   } catch (error) {
     next(error);
   }
