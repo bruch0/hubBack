@@ -13,4 +13,9 @@ const updateCompany = joi.object({
   address: joi.string().required().min(8).max(100).required(),
 });
 
-export { createCompany, updateCompany };
+const deleteCompany = joi.object({
+  taxId: joi.string().required().min(13).max(15).required(),
+  userId: joi.number().required().min(1).required(),
+});
+
+export { createCompany, updateCompany, deleteCompany };

@@ -106,4 +106,28 @@ const updateCompany = async ({
   return companyDetails;
 };
 
-export { getUserCompanies, getCompanyDetails, createCompany, updateCompany };
+const deleteCompany = async ({ taxId, userId }: { userId: number; taxId: string }): Promise<any> => {
+  const validation = companySchema.deleteCompany.validate({
+    taxId,
+    userId,
+  });
+
+  if (validation.error != null) {
+    const errorMessage = validation.error.details[0].message;
+    throw new Error('bodyValidation', errorMessage, 400);
+  }
+
+  const company = await companyRepository.getOneCompany({
+    where: {
+      taxId,
+    },
+  });
+
+  if (company?.mainUserId !== userId) {
+    throw new Error('unauthorized', 'Only the company owner can delete a company', 401);
+  }
+
+  await companyRepository.deleteCompany({ where: { taxId } });
+};
+
+export { getUserCompanies, getCompanyDetails, createCompany, updateCompany, deleteCompany };

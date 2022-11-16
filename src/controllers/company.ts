@@ -38,4 +38,12 @@ const updateCompany = async (request: Request, response: Response, next: NextFun
   }
 };
 
-export { getUserCompanies, getCompanyDetails, createCompany, updateCompany };
+const deleteCompany = async (request: Request, response: Response, next: NextFunction): Promise<any> => {
+  const companyDetails = await companyService.deleteCompany({
+    ...request.body,
+    userId: JSON.parse(request.headers.cookie!).id,
+  });
+  return response.status(200).send(companyDetails);
+};
+
+export { getUserCompanies, getCompanyDetails, createCompany, updateCompany, deleteCompany };
