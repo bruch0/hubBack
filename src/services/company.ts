@@ -81,4 +81,29 @@ const createCompany = async ({
   await companyRepository.createCompany({ data: { name, address, taxId, mainUserId } });
 };
 
-export { getUserCompanies, getCompanyDetails, createCompany };
+const updateCompany = async ({
+  name,
+  address,
+  taxId,
+}: {
+  name: string;
+  address: string;
+  taxId: string;
+}): Promise<any> => {
+  const validation = companySchema.updateCompany.validate({
+    name,
+    address,
+    taxId,
+  });
+
+  if (validation.error != null) {
+    const errorMessage = validation.error.details[0].message;
+    throw new Error('bodyValidation', errorMessage, 400);
+  }
+
+  const companyDetails = await companyRepository.updateCompany({ data: { name, address, taxId }, where: { taxId } });
+
+  return companyDetails;
+};
+
+export { getUserCompanies, getCompanyDetails, createCompany, updateCompany };

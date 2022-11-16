@@ -7,4 +7,10 @@ const createCompany = joi.object({
   address: joi.string().required().min(8).max(100).required(),
 });
 
-export { createCompany };
+const updateCompany = joi.object({
+  name: joi.string().required().min(3).max(30).required(),
+  taxId: joi.string().required().min(13).max(15).required(),
+  address: joi.string().required().min(8).max(100).required(),
+});
+
+export { createCompany, updateCompany };

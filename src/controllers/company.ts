@@ -14,7 +14,7 @@ const getUserCompanies = async (request: Request, response: Response, next: Next
 const getCompanyDetails = async (request: Request, response: Response, next: NextFunction): Promise<any> => {
   try {
     const companyDetails = await companyService.getCompanyDetails({ companyId: Number(request.params.companyId) });
-    return response.status(201).send(companyDetails);
+    return response.status(200).send(companyDetails);
   } catch (error) {
     next(error);
   }
@@ -29,4 +29,13 @@ const createCompany = async (request: Request, response: Response, next: NextFun
   }
 };
 
-export { getUserCompanies, getCompanyDetails, createCompany };
+const updateCompany = async (request: Request, response: Response, next: NextFunction): Promise<any> => {
+  try {
+    const companyDetails = await companyService.updateCompany({ ...request.body });
+    return response.status(200).send(companyDetails);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { getUserCompanies, getCompanyDetails, createCompany, updateCompany };
