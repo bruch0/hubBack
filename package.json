@@ -9,10 +9,10 @@
     "db:dev": "npx prisma generate --schema prisma/schema.prisma",
     "lint": "npx eslint \"src/**/**.ts\" --max-warnings=0",
     "build": "tsc",
-    "test:watch": "npm run db:test && npx jest -i --watch",
-    "test:coverage": "npm run db:test && npx jest -i --coverage",
+    "test:watch": "npm run db:test && npx jest --watch",
+    "test:coverage": "npm run db:test && npx jest --coverage",
     "test": "npm run db:test && npx jest -i",
-    "test:workflow": "npm run db:migrate && npm run db:dev && npx jest -i --coverage"
+    "test:workflow": "npm run db:migrate && npm run db:dev && npx jest --coverage"
   },
   "engines": {
     "node": ">=18.9.1"
