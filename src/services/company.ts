@@ -19,13 +19,13 @@ const getUserCompanies = async ({ userId }: { userId: number }): Promise<any> =>
 const getCompanyDetails = async ({ companyId }: { companyId: number }): Promise<any> => {
   if (Number.isNaN(companyId)) throw new Error('invalidCompanyId', 'Empresa inválida', 404);
 
-  const userCompanies = await companyRepository.getOneCompany({
+  const companyDetails = await companyRepository.getOneCompany({
     where: {
       id: companyId,
     },
   });
 
-  return userCompanies;
+  return companyDetails;
 };
 
 const createCompany = async ({

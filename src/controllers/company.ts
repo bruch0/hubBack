@@ -13,8 +13,8 @@ const getUserCompanies = async (request: Request, response: Response, next: Next
 
 const getCompanyDetails = async (request: Request, response: Response, next: NextFunction): Promise<any> => {
   try {
-    await companyService.getCompanyDetails({ companyId: Number(request.params.companyId) });
-    return response.status(201).send();
+    const companyDetails = await companyService.getCompanyDetails({ companyId: Number(request.params.companyId) });
+    return response.status(201).send(companyDetails);
   } catch (error) {
     next(error);
   }
