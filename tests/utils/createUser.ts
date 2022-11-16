@@ -1,9 +1,10 @@
-import { PrismaClient, User } from '@prisma/client';
+import { User } from '@prisma/client';
 import { hashSync } from 'bcrypt';
 import faker from 'faker';
 
+import prisma from '../../src/repositories/prismaInitializer';
+
 const createUser = async (): Promise<Omit<User, 'name' | 'phone' | 'address'>> => {
-  const prisma = new PrismaClient();
   const password = faker.internet.password();
   const validBody = {
     name: faker.name.findName(),

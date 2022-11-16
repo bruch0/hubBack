@@ -1,8 +1,6 @@
-import { PrismaClient } from '@prisma/client';
+import prisma from '../../src/repositories/prismaInitializer';
 
 const clearDatabase = async (): Promise<void> => {
-  const prisma = new PrismaClient();
-
   await prisma.$executeRawUnsafe('TRUNCATE "User" CASCADE;');
 
   await prisma.$executeRawUnsafe('TRUNCATE "Company" CASCADE;');
