@@ -1,9 +1,11 @@
 import { Router } from 'express';
 
+import auth from '@middlewares/authentication';
+
 import * as companyController from '@controllers/company';
 
 const router = Router();
 
-router.post('/companies', companyController.getUserCompanies);
+router.get('/companies', auth, companyController.getUserCompanies);
 
 export default router;
